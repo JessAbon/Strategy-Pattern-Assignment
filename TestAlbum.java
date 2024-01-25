@@ -10,39 +10,23 @@ public class TestAlbum {
                 new Album("Best of", "Mozart", Album.Genre.CLASSICAL),
                 new Album("Thank you for the music", "ABBA", Album.Genre.POP)
         };
-        printAlbums(albums);
+        //printAlbums(albums);
+
+        GenreFilter noPopFilter = new NoPopFilter();
+        GenreFilter onlyPopFilter = new OnlyPopFilter();
 
         System.out.println("Without pop:");
-        printWithoutPopAlbums(albums);
-
+        printAlbums(albums, noPopFilter);
+        System.out.println("**********************************************************");
         System.out.println("And with only pop albums: ");
-        printWithOnlyPopAlbums(albums);
+        printAlbums(albums, onlyPopFilter);
     }
 
-
-    static void printWithOnlyPopAlbums(Album[] albums) {
-        GenreFilter onlyPopFilter = new OnlyPopFilter();
+    static void printAlbums(Album[] albums, GenreFilter filter) {
         for (Album a : albums) {
-            if (onlyPopFilter.accept(a)) {
+            if(filter.accept(a)) {
                 System.out.println(a);
             }
-        }
-    }
-
-
-    static void printWithoutPopAlbums(Album[] albums) {
-        GenreFilter noPopFilter = new NoPopFilter();
-
-        for (Album a : albums) {
-            if (noPopFilter.accept(a)) {
-                System.out.println(a);
-            }
-        }
-    }
-
-    static void printAlbums(Album[] albums) {
-        for (Album a : albums) {
-            System.out.println(a);
         }
     }
 }
